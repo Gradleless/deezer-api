@@ -5,6 +5,7 @@ class Track extends Base {
     constructor(id) {
         super();
         this.urid = this.uri + "track/";
+        this.suri = this.uri + "/search?q="
     }
     
     async getTrack(id) {
@@ -22,7 +23,7 @@ class Track extends Base {
             "isrc": res.isrc,
             "share": res.share,
             "link": res.link,
-            "duration": res.duration,
+            "duration": this.convertDuration(res.duration),
             "album": {
                 "track_position": res.track_position,
                 "id": res.album.id,
@@ -64,6 +65,78 @@ class Track extends Base {
                 "tracklist": res.artist.tracklist
             }
         }       
+    }
+
+    async searchTrack(track, artist) {
+
+        if(typeof track != "string") return console.log("It must be a String !");
+        if(!artist) {
+
+            const res = (await this.axios.get(this.suri + `track:"${track}"`)).data;
+            return res;
+
+        } else if(typeof artist == "string") {
+
+            const res = (await this.axios.get(this.suri + `artist:"${artist}" track:"${track}"`)).data;
+            const ress = res.data[0];
+
+            if(res.data.length == 1) {
+
+                return {
+                    "id": ress.id,
+                    "readable": ress.readable,
+                    "title": ress.title,
+                    "title_short": ress.title_short,
+                    "title_version": ress.title_version,
+                    "link": ress.link,
+                    "duration": this.convertDuration(ress.duration),
+                    "rank": ress.rank,
+                    "explicit_lyrics": ress.explicit_lyrics,
+                    "explicit_content_lyrics": ress.explicit_content_lyrics,
+                    "explicit_content_cover": ress.explicit_content_cover,
+                    "preview": ress.preview,
+                    "md5_image": ress.md5_image,
+                    "artist": {
+                        "id": ress.artist.id,
+                        "name": ress.artist.name,
+                        "link": ress.artist.link,
+                        "picture": {
+                            "small": ress.artist.picture_small,
+                            "medium": ress.artist.picture_medium,
+                            "big": ress.artist.picture_big,
+                            "xl": ress.artist.picture_xl
+                        },
+                        "tracklist": ress.artist.tracklist,
+                        "type": ress.artist.type,
+                    },
+                    "album": {
+                        "id": ress.album.id,
+                        "title": ress.album.title,
+                        "cover": {
+                            "small": ress.album.cover_small,
+                            "medium": ress.album.cover_medium,
+                            "big": ress.album.cover_big,
+                            "xl": ress.album.cover_xl
+                        },
+                        "md5_image": ress.album.md5_image,
+                        "tracklist": ress.album.tracklist,
+                        "type": ress.album.type // it's useless but... Yeah idk
+                    }
+                }
+
+            } else {
+
+                return {
+                    "data": res.data,
+                    "nb_results": res.total
+                }
+            }
+            
+        } else {
+
+            return console.log("It must be a String !");
+        }
+        
     }
 }
 
