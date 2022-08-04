@@ -4,7 +4,7 @@
     - [ ] Chart 
     - [ ] Editorial 
     - [ ] Episode 
-    - [ ] Genre 
+    - [x] Genre 
     - [ ] Infos 
     - [ ] Options
     - [ ] OAuth
