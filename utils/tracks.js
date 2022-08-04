@@ -5,7 +5,7 @@ class Track extends Base {
     constructor(id) {
         super();
         this.urid = this.uri + "track/";
-        this.suri = this.uri + "/search?q="
+        this.suri = this.uri + "search/track?q=";
     }
     
     async getTrack(id) {
@@ -135,8 +135,18 @@ class Track extends Base {
         } else {
 
             return console.log("It must be a String !");
-        }
-        
+        }       
+    }
+
+    async searchArtistTracks(name) {
+
+        if(typeof name != "string") return console.log("It must be a String value !");
+        const res = (await this.axios.get(this.suri + `artist:"${name}"`)).data;
+
+        return {
+            "data": res.data,
+            "nb_results": res.total
+        }       
     }
 }
 

@@ -5,6 +5,7 @@ class Album extends Base {
     constructor(id) {
         super();
         this.urid = this.uri + "album/";
+        this.suri = this.uri + "search/album?q=";
     }
     
     async getAlbum(id) {
@@ -53,6 +54,67 @@ class Album extends Base {
                 },
             },
             "tracks": res.tracks.data
+        }       
+    }
+
+    async searchAlbum(album, artist) {
+
+        if(typeof album != "string") return console.log("It must be a String !");
+        if(!artist) {
+
+            const res = (await this.axios.get(this.suri + `track:"${album}"`)).data;
+            return res;
+
+        } else if(typeof artist == "string") {
+
+            const res = (await this.axios.get(this.suri + `artist:"${artist}" track:"${album}"`)).data;
+            const ress = res.data[0];
+
+            if(res.data.length == 1) {
+
+                return {
+                    "id": ress.id,
+                    "title": ress.title,
+                    "link": ress.link,
+                    "explicit_lyrics": ress.explicit_lyrics,
+                    "cover": {
+                        "small": ress.cover_small,
+                        "medium": ress.cover_medium,
+                        "big": ress.cover_big,
+                        "xl": ress.cover_xl
+                    },
+                    "md5_image": ress.md5_image,
+                    "genre_id": ress.genre_id,
+                    "nb_tracks": ress.nb_tracks,
+                    "record_type": ress.record_type,
+                    "tracklist": ress.tracklist,
+                    "type": ress.type,
+                    "artist": {
+                        "id": ress.artist.id,
+                        "name": ress.artist.name,
+                        "link": ress.artist.link,
+                        "picture": {
+                            "small": ress.artist.picture_small,
+                            "medium": ress.artist.picture_medium,
+                            "big": ress.artist.picture_big,
+                            "xl": ress.artist.picture_xl
+                        },
+                        "tracklist": ress.artist.tracklist,
+                        "type": ress.artist.type,
+                    }
+                }
+
+            } else {
+
+                return {
+                    "data": res.data,
+                    "nb_results": res.total
+                }
+            }
+            
+        } else {
+
+            return console.log("It must be a String !");
         }       
     }
 }
