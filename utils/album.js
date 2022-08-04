@@ -1,9 +1,11 @@
 const Base = require("./base");
+const Genre = require("./genre");
 
 class Album extends Base {
 
-    constructor(id) {
+    constructor() {
         super();
+        this.genre = new Genre;
         this.urid = this.uri + "album/";
         this.suri = this.uri + "search/album?q=";
     }
@@ -62,15 +64,16 @@ class Album extends Base {
         if(typeof album != "string") return console.log("It must be a String !");
         if(!artist) {
 
-            const res = (await this.axios.get(this.suri + `track:"${album}"`)).data;
+            const res = (await this.axios.get(this.suri + `"${album}"`)).data;
             return res;
 
         } else if(typeof artist == "string") {
 
-            const res = (await this.axios.get(this.suri + `artist:"${artist}" track:"${album}"`)).data;
+            const res = (await this.axios.get(this.suri + `artist:"${artist}" album:"${album}"`)).data;
             const ress = res.data[0];
 
             if(res.data.length == 1) {
+                const genreprop = (await this.genre.getGenre(`${ress.genre_id}`));
 
                 return {
                     "id": ress.id,
@@ -85,6 +88,17 @@ class Album extends Base {
                     },
                     "md5_image": ress.md5_image,
                     "genre_id": ress.genre_id,
+                    "genre": {
+                        "id": ress.genre_id,
+                        "name": genreprop.name,
+                        "picture": {
+                            "small": genreprop.picture.small,
+                            "medium": genreprop.picture.medium,
+                            "big": genreprop.picture.big,
+                            "xl": genreprop.picture.xl
+                        },
+                        "type": genreprop.type
+                    },
                     "nb_tracks": ress.nb_tracks,
                     "record_type": ress.record_type,
                     "tracklist": ress.tracklist,
