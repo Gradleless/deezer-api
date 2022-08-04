@@ -2,7 +2,7 @@ const Base = require("./base");
 
 class Track extends Base {
 
-    constructor(id) {
+    constructor() {
         super();
         this.urid = this.uri + "track/";
         this.suri = this.uri + "search/track?q=";
@@ -72,7 +72,7 @@ class Track extends Base {
         if(typeof track != "string") return console.log("It must be a String !");
         if(!artist) {
 
-            const res = (await this.axios.get(this.suri + `track:"${track}"`)).data;
+            const res = (await this.axios.get(this.suri + `"${track}"`)).data;
             return res;
 
         } else if(typeof artist == "string") {
