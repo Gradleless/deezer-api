@@ -2,7 +2,7 @@ const Base = require("./base");
 
 class Artist extends Base {
 
-    constructor(id) {
+    constructor() {
         super();
         this.urid = this.uri + "artist/";
         this.suri = this.uri + "search/artist?q="
