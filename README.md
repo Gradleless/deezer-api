@@ -3,12 +3,12 @@
 1. ToDo list 
     - [ ] Chart 
     - [ ] Editorial 
-    - [ ] Episode 
+    - [x] Episode (partially)
     - [x] Genre 
     - [ ] Infos 
     - [ ] Options
     - [ ] OAuth
-    - [x] Playlist
+    - [x] Playlist (partially)
     - [ ] Podcast 
     - [ ] Radio
     - [ ] Search (began)
