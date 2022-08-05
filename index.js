@@ -4,6 +4,7 @@ const Artist = require("./utils/artist");
 const Playlist = require("./utils/playlist");
 const Genre = require("./utils/genre");
 const Episode = require("./utils/episode");
+const Infos = require("./utils/infos");
 
 class DeezerAPI {
 
@@ -15,6 +16,7 @@ class DeezerAPI {
         this.playlist = new Playlist;
         this.genre = new Genre;
         this.episode = new Episode;
+        this.infos = new Infos;
     }
 }
 module.exports = DeezerAPI;
