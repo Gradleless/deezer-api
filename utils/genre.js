@@ -3,7 +3,6 @@ const Base = require("./base");
 class Genre extends Base {
 
     constructor() {
-
         super();
         this.urid = this.uri + "genre/";
         this.suri = this.uri + "search/genre?q="

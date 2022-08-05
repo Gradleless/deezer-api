@@ -3,7 +3,6 @@ const Base = require("./base");
 class Episode extends Base {
 
     constructor() {
-
         super();
         this.urid = this.uri + "episode/";
         this.suri = this.uri + "search/episode?q=";
@@ -44,6 +43,17 @@ class Episode extends Base {
                 "type": res.podcast.type
             },
             "type": res.type,
+        }
+    }
+
+    async searchEpisode(name) {
+
+        if(typeof name != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + name)).data;
+        
+        return {
+            "data": res.data,
+            "nb_results": res.total
         }
     }
 }

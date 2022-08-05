@@ -2,9 +2,10 @@ const Base = require("./base");
 
 class Playlist extends Base {
 
-    constructor(id) {
+    constructor() {
         super();
         this.urid = this.uri + "playlist/";
+        this.suri = this.uri + "search/playlist?q=";
     }
     
     async getPlaylist(id) {
@@ -33,6 +34,16 @@ class Playlist extends Base {
             "creator": res.creator,
             "tracks": res.tracks.data
         }     
+    }
+
+    async searchPlaylist(name) {
+
+        if(typeof name != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + name)).data;
+        return {
+            "data": res.data,
+            "nb_results": res.total
+        }
     }
 }
 
