@@ -3,7 +3,7 @@
 1. ToDo list 
     - [ ] Chart 
     - [ ] Editorial 
-    - [x] Episode (partially)
+    - [x] Episode
     - [x] Genre 
     - [x] Infos 
     - [ ] Options
