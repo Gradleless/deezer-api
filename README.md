@@ -5,7 +5,7 @@
     - [ ] Editorial 
     - [x] Episode (partially)
     - [x] Genre 
-    - [ ] Infos 
+    - [x] Infos 
     - [ ] Options
     - [ ] OAuth
     - [x] Playlist (partially)
