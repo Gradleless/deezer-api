@@ -9,6 +9,8 @@
   "author": "NarumiLy",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "open": "^8.4.0"
   }
 }
