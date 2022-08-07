@@ -11,10 +11,10 @@ class Oauth extends Base {
         this.curi = "https://connect.deezer.com/oauth/auth.php?app_id=";
     }
 
-    getAuthCode(app_id, perms, redirect_uri) {
+    async getAuthCode(app_id, perms, redirect_uri) {
         if(!redirect_uri) {
 
-            redirect_uri = "http://localhost:80/";
+            redirect_uri = (await this.axios.get("api.ipify.org")).data; // your ip
             open(this.curi + app_id + "&redirect_uri=" + redirect_uri + "&perms=" + perms);
 
             app.get("/", function(req, res) {
