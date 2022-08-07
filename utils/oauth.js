@@ -14,7 +14,7 @@ class Oauth extends Base {
     async getAuthCode(app_id, perms, redirect_uri) {
         if(!redirect_uri) {
 
-            redirect_uri = (await this.axios.get("api.ipify.org")).data; // your ip
+            redirect_uri = (await this.axios.get("http://api.ipify.org?format=json")).data.ip; // your ip
             open(this.curi + app_id + "&redirect_uri=" + redirect_uri + "&perms=" + perms);
 
             app.get("/", function(req, res) {
