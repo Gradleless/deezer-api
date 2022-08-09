@@ -5,6 +5,11 @@ class Base {
         this.uri = "https://api.deezer.com/";
     }
 
+    /**
+     * @name convertDuration
+     * @param {int} duration 
+     * @returns duration in minutes
+     */
     convertDuration(duration) {
 
         const dur = duration / 60; 

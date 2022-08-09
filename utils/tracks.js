@@ -8,6 +8,10 @@ class Track extends Base {
         this.suri = this.uri + "search/track?q=";
     }
     
+    /**
+     * @name getTrack
+     * @param {string} id 
+     */
     async getTrack(id) {
         
         if(typeof id != "string") return console.log("It must be a String value !");
@@ -67,6 +71,11 @@ class Track extends Base {
         }       
     }
 
+    /**
+     * @name searchTrack
+     * @param {string} track 
+     * @param {string} artist 
+     */
     async searchTrack(track, artist) {
 
         if(typeof track != "string") return console.log("It must be a String !");
@@ -138,6 +147,10 @@ class Track extends Base {
         }       
     }
 
+    /**
+     * @name searchArtistTracks
+     * @param {string} name 
+     */
     async searchArtistTracks(name) {
 
         if(typeof name != "string") return console.log("It must be a String value !");

@@ -8,6 +8,10 @@ class Episode extends Base {
         this.suri = this.uri + "search/episode?q=";
     }
 
+    /**
+     * @name getEpisode
+     * @param {string} id 
+     */
     async getEpisode(id) {
 
         if(typeof id != "string") return console.log("It must be a string value !");
@@ -46,6 +50,10 @@ class Episode extends Base {
         }
     }
 
+    /**
+     * @name searchEpisode
+     * @param {string} name 
+     */
     async searchEpisode(name) {
 
         if(typeof name != "string") return console.log("It must be a string value !");

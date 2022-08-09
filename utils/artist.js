@@ -33,6 +33,10 @@ class Artist extends Base {
         }       
     }
 
+    /**
+     * @name searchArtist
+     * @param {string} name 
+     */
     async searchArtist(name) {
 
         if(typeof name != "string") return console.log("It must be a String value !");

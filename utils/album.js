@@ -10,6 +10,10 @@ class Album extends Base {
         this.suri = this.uri + "search/album?q=";
     }
     
+    /**
+     * @name getAlbum
+     * @param {string} id 
+     */
     async getAlbum(id) {
         
         if(typeof id != "string") return console.log("It must be a String value !");
@@ -59,6 +63,11 @@ class Album extends Base {
         }       
     }
 
+    /**
+     * @name searchAlbum
+     * @param {string} album 
+     * @param {string} artist 
+     */
     async searchAlbum(album, artist) {
 
         if(typeof album != "string") return console.log("It must be a String !");

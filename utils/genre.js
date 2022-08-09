@@ -8,6 +8,10 @@ class Genre extends Base {
         this.suri = this.uri + "search/genre?q="
     }
 
+    /**
+     * @name getGenre
+     * @param {string} id 
+     */
     async getGenre(id) {
 
         if(typeof id != "string") return console.log("It must be a string value !");

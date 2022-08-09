@@ -8,6 +8,10 @@ class Playlist extends Base {
         this.suri = this.uri + "search/playlist?q=";
     }
     
+    /**
+     * @name getPlaylist
+     * @param {string} id 
+     */
     async getPlaylist(id) {
         
         if(typeof id != "string") return console.log("It must be a String value !");
@@ -36,6 +40,10 @@ class Playlist extends Base {
         }     
     }
 
+    /**
+     * @name searchPlaylist
+     * @param {string} name 
+     */
     async searchPlaylist(name) {
 
         if(typeof name != "string") return console.log("It must be a string value !");
