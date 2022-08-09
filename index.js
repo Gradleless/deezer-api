@@ -6,6 +6,7 @@ const Genre = require("./utils/genre");
 const Episode = require("./utils/episode");
 const Infos = require("./utils/infos");
 const Podcast = require("./utils/podcast");
+const Charts = require("./utils/chart");
 
 class DeezerAPI {
 
@@ -18,6 +19,7 @@ class DeezerAPI {
         this.episode = new Episode;
         this.infos = new Infos;
         this.podcast = new Podcast;
+        this.charts = new Charts;
     }
 }
 module.exports = DeezerAPI;
