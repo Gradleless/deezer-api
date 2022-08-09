@@ -1,7 +1,7 @@
 # deezer-api
  A simple wrapper for interacting easily with Deezer API.
 1. ToDo list 
-    - [ ] Chart 
+    - [x] Chart 
     - [ ] Editorial 
     - [x] Episode
     - [x] Genre 
@@ -9,7 +9,7 @@
     - [ ] Options
     - [ ] OAuth
     - [x] Playlist (partially)
-    - [ ] Podcast 
+    - [x] Podcast 
     - [ ] Radio
     - [ ] Search (began)
     - [ ] User 
