@@ -30,6 +30,31 @@ class Genre extends Base {
             "type": res.type
         }
     }
+
+    /**
+     * @name getTypeByGenre
+     * @param {string} id 
+     * @param {string} type - artists, podcasts and radios only 
+     */
+    async getTypeByGenre(id, type) {
+
+        if(typeof id != string || typeof type != "string") return console.log("The parameters must be string values");
+        const res = (await this.axios.get(this.urid + id + `/${type}`)).data;
+
+        switch(type) {
+
+            case "artists":
+            case "podcasts":
+            case "radios":
+                return {
+                    "data":  res.data,
+                    "nb_results": res.data.length
+                }
+            default:
+                console.log("There's only 3 categories: artists, podcasts and radios");
+                break;
+        }
+    }
 }
 
 module.exports = Genre;
