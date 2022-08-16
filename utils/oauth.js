@@ -15,9 +15,9 @@ class Oauth extends Base {
         if(!redirect_uri) {
 
             redirect_uri = (await this.axios.get("http://api.ipify.org?format=json")).data.ip; // your ip
-            open(this.curi + app_id + "&redirect_uri=" + redirect_uri + "&perms=" + perms);
+            open(this.curi + app_id + "&redirect_uri=http://" + "localhost:80" + "/redirect/" + "&perms=" + perms);
 
-            app.get("/", function(req, res) {
+            app.get("/redirect", function(req, res) {
 
                 console.log(req.query.code);
                 fs.writeFile("config.json", `{ "code": "${req.query.code}" }`, function(err) {
@@ -28,8 +28,7 @@ class Oauth extends Base {
                 console.log("Code saved in config.json");
             })
 
-            app.listen(80);
-            
+            var server = app.listen(80);             
         } else {
 
         open(this.curi + app_id + "&redirect_uri=" + redirect_uri + "&perms=" + perms);
@@ -38,19 +37,18 @@ class Oauth extends Base {
 
     async getAuth(app_id, app_secret, code) {
 
-        if(!app_id || app_secret || code) return console.log("We need all of the parameters !");
+        if(!app_id || !app_secret || !code) return console.log("We need all of the parameters !");
         if(typeof app_id != "string" || typeof app_secret != "string" || typeof code != "string") return console.log("It must be a string value !");
 
         const res = (await this.axios.get(`https://connect.deezer.com/oauth/access_token.php?app_id=${app_id}&secret=${app_secret}&code=${code}`)).data;
+        if(res == "wrong code") return console.log("Wrong code or outdated code");
 
         return {
             // "all_data": res,
-            "token": res.access_token,
-            "expire_time": res.expires
+            "token": res.split("&expires=")[0].slice(13),
+            "expire_time": res.split("&expires=")[1],
         }
-
     }
-
 }
 
 module.exports = Oauth;
