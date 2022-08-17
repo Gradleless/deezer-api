@@ -9,6 +9,17 @@ class Oauth extends Base {
     constructor() {
         super();
         this.curi = "https://connect.deezer.com/oauth/auth.php?app_id=";
+        this.permissions = {
+            "basic_access": "basic_access",
+            "email": "email",
+            "offline_access": "offline_access",
+            "manage": {
+                "library": "manage_library",
+                "community": "manage_community",
+            },
+            "delete_library": "delete_library",
+            "history": "listening_history"
+        }
     }
 
     async getAuthCode(app_id, perms, redirect_uri) {
