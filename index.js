@@ -9,6 +9,7 @@ const Podcast = require("./utils/podcast");
 const Charts = require("./utils/chart");
 const Editorial = require("./utils/editorial");
 const Oauth = require("./utils/oauth");
+const User = require("./utils/user");
 
 class DeezerAPI {
 
@@ -24,6 +25,7 @@ class DeezerAPI {
         this.charts = new Charts;
         this.editorial = new Editorial;
         this.oauth = new Oauth;
+        this.user = new User;
     }
 }
 module.exports = DeezerAPI;
