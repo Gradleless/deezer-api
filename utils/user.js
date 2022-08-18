@@ -61,6 +61,75 @@ class User extends Base {
             "explicit_content_levels_available": ["explicit_display", "explicit_no_recommendation", "explicit_hide"],
         }
     }
+
+    async getPermissions(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "permissions", { params: { access_token: token } })).data;
+        if(res.id == undefined) return res.error;
+
+        return {
+            "permissions": res.permissions
+        }
+    }
+
+    async getHistory(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "history", { params: { access_token: token } })).data;
+        if(res.id == undefined) return res.error;
+
+        return {
+            "all_data": res //I don't have the permission lmao, I'll give it to myself later
+        }
+    }
+
+    async getPlaylists(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: token } })).data;
+        if(res.id == undefined) return res.error;
+
+        return {
+            "playlists": res.data,
+            "nb_results": res.total
+        }
+    }
+
+    async getPersonalSongs(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: token } })).data;
+        if(res.id == undefined) return res.error;
+
+        return {
+            "songs": res.data,
+            "nb_results": res.total
+        }
+    }
+
+    async getOptions(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "options", { params: { access_token: token } })).data;
+        if(res.id == undefined) return res.error;
+
+        return {
+            "streaming": res.streaming,
+            "streaming_duration": res.streaming_duration,
+            "offline": res.offline,
+            "hq": res.hq,
+            "ads_display": res.ads_display,
+            "ads_audio": res.ads_audio,
+            "too_many_devices": res.too_many_devices,
+            "can_subscribe": res.can_subscribe,
+            "radio_skips": res.radio_skips,
+            "lossless": res.lossless,
+            "preview": res.preview,
+            "radio": res.radio,
+            "type": res.type
+        }
+    }
 }
 
 module.exports = User;
