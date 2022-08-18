@@ -12,6 +12,6 @@
     - [x] Podcast 
     - [ ] Radio
     - [ ] Search (began)
-    - [ ] User 
+    - [x] User (began) 
     - [ ] oEmbed (?)
     - [ ] API Errors 
