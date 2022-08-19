@@ -12,7 +12,7 @@ class Artist extends Base {
         
         if(typeof id != "string") return console.log("It must be a String value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.id == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             // "all_data": res,

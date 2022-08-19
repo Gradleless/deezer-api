@@ -12,7 +12,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.id == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             // "all_data": res,
@@ -35,7 +35,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri, { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             // "all_data": res,
@@ -86,7 +86,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "playlists": res.data,
@@ -98,7 +98,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "songs": res.data,
@@ -110,7 +110,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "options", { params: { access_token: token } })).data;
-        if(res.hq == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             //"all_data": res,
@@ -134,7 +134,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "followers": res.data,
@@ -146,7 +146,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "followers": res.data,
@@ -158,7 +158,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "followings", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "followings": res.data,
@@ -170,7 +170,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "artists", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.error) return res.error;
 
         return {
             "artists": res.data,
@@ -183,7 +183,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "albums", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+        if(res.error) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
 
         return {
             "albums": res.data,
@@ -196,7 +196,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "podcasts", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+        if(res.error) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
 
         return {
             "podcasts": res.data,
@@ -209,7 +209,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+        if(res.error) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
 
         return {
             "radios": res.data,
@@ -222,7 +222,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+        if(res.error) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
 
         return {
             "radios": res.data,
