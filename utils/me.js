@@ -182,6 +182,15 @@ class Me extends Base {
             "checksum": res.checksum
         }
     }  
+
+    async sendNotification(token, message) {
+
+        if(typeof token != "string" || typeof message != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.suri + "notifications", {data: {}}, { params: { access_token: token, message: message }})).data;
+        if(res.error) return res.error;
+
+        return `Success: ${res.success}`
+    }
 }
 
 module.exports = Me;
