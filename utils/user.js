@@ -4,7 +4,7 @@ class User extends Base {
 
     constructor() {
         super();
-        this.urid = this.uri + "me/";
+        this.urid = this.uri + "user/";
     }
 
     async getUser(id) {
