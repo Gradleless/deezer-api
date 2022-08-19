@@ -183,7 +183,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "albums", { params: { access_token: token } })).data;
-        if(res.data == undefined) return res.error;
+        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
 
         return {
             "albums": res.data,
@@ -191,6 +191,45 @@ class User extends Base {
             "checksum": res.checksum
         }
     }
+
+    async getFavoritePodcasts(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "podcasts", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+
+        return {
+            "podcasts": res.data,
+            "nb_podcasts": res.total,
+            "checksum": res.checksum
+        }
+    }
+
+    async getFavoriteRadios(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+
+        return {
+            "radios": res.data,
+            "nb_radios": res.total,
+            "checksum": res.checksum
+        }
+    }
+
+    async getFavoriteRadios(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error; //ToDo: have to write if(res.error) i'm an idiot lmfao
+
+        return {
+            "radios": res.data,
+            "nb_radios": res.total,
+            "checksum": res.checksum
+        }
+    }   
 }
 
 module.exports = User;
