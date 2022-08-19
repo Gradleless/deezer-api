@@ -66,7 +66,6 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "permissions", { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
 
         return {
             "permissions": res.permissions
@@ -77,7 +76,6 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "history", { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
 
         return {
             "all_data": res //I don't have the permission lmao, I'll give it to myself later
@@ -88,7 +86,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
+        if(res.data == undefined) return res.error;
 
         return {
             "playlists": res.data,
@@ -100,7 +98,7 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
+        if(res.data == undefined) return res.error;
 
         return {
             "songs": res.data,
@@ -112,9 +110,10 @@ class User extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "options", { params: { access_token: token } })).data;
-        if(res.id == undefined) return res.error;
+        if(res.hq == undefined) return res.error;
 
         return {
+            //"all_data": res,
             "streaming": res.streaming,
             "streaming_duration": res.streaming_duration,
             "offline": res.offline,
@@ -128,6 +127,68 @@ class User extends Base {
             "preview": res.preview,
             "radio": res.radio,
             "type": res.type
+        }
+    }
+
+    async getFollowers(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error;
+
+        return {
+            "followers": res.data,
+            "nb_followers": res.total
+        }
+    }
+
+    async getFollowers(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error;
+
+        return {
+            "followers": res.data,
+            "nb_followers": res.total
+        }
+    }
+
+    async getFollowings(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "followings", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error;
+
+        return {
+            "followings": res.data,
+            "nb_followings": res.total
+        }
+    }
+
+    async getFavoriteArtists(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "artists", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error;
+
+        return {
+            "artists": res.data,
+            "nb_artists": res.total,
+            "checksum": res.checksum
+        }
+    }
+
+    async getFavoriteAlbums(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "albums", { params: { access_token: token } })).data;
+        if(res.data == undefined) return res.error;
+
+        return {
+            "albums": res.data,
+            "nb_albums": res.total,
+            "checksum": res.checksum
         }
     }
 }

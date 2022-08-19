@@ -14,4 +14,4 @@
     - [ ] Search (began)
     - [x] User (began) 
     - [ ] oEmbed (?)
-    - [ ] API Errors 
+    - [ ] Have to add token directly in the constructor
