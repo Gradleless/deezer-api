@@ -30,9 +30,9 @@ class User extends Base {
         }
     }
 
-    async getPlaylists(token) {
+    async getPlaylists(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "playlists")).data;
         if(res.error) return res.error;
 
@@ -42,9 +42,9 @@ class User extends Base {
         }
     }
 
-    async getFollowers(token) {
+    async getFollowers(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "followers")).data;
         if(res.error) return res.error;
 
@@ -54,9 +54,9 @@ class User extends Base {
         }
     }
 
-    async getFollowings(token) {
+    async getFollowings(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "followings")).data;
         if(res.error) return res.error;
 
@@ -66,9 +66,9 @@ class User extends Base {
         }
     }
 
-    async getFavoriteArtists(token) {
+    async getFavoriteArtists(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "artists")).data;
         if(res.error) return res.error;
 
@@ -79,9 +79,9 @@ class User extends Base {
         }
     }
 
-    async getFavoriteAlbums(token) {
+    async getFavoriteAlbums(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "albums")).data;
         if(res.error) return res.error; 
 
@@ -92,9 +92,9 @@ class User extends Base {
         }
     }
 
-    async getFavoritePodcasts(token) {
+    async getFavoritePodcasts(id) {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
+        if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "podcasts")).data;
         if(res.error) return res.error; 
 
