@@ -1,5 +1,12 @@
 # deezer-api
  A simple wrapper for interacting easily with Deezer API.
+
+ To download just use:
+ ```
+ npm install @narumily/deezerapi
+ ```
+or clone it lmao
+
 1. ToDo list 
     - [x] Chart 
     - [x] Editorial 
