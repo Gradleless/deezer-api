@@ -161,6 +161,48 @@ class Track extends Base {
             "nb_results": res.total
         }       
     }
+
+    /**
+     * @name getoEmbed
+     * @param {string} id 
+     * @param {boolean} autoplay - (optional) Play the music on load
+     * @param {int} maxwidth - (optional) Maximum width of the resource
+     * @param {int} maxheight - (optional) Maximum height of the resource
+     * @param {boolean} radius - (optional) Radius visual effect
+     * @param {boolean} tracklist - (optional) Display the tracklist 
+    */
+     async getoEmbed(id, data = { autoplay: false, maxwidth: 420, maxheight: 420, radius: true, tracklist: false }) {
+
+        if(typeof id != "string") return console.log("It must be a string value !");
+
+        const params = `/&autoplay=${data.autoplay}&maxwidth=${data.maxwidth}&maxheight=${data.maxheight}&radius=${data.radius}&tracklist=${data.tracklist}`
+        const res = (await this.axios.get(this.uri + "oembed?url=https://www.deezer.com/track/" + id + params)).data;
+        if(res.error) return res.error;
+
+        return {
+            // "all_data": res,
+            "version": res.version,
+            "type": res.type,
+            "cache_age": res.cache_age,
+            "provider": {
+                "name": res.provider_name,
+                "url": res.provider_url
+            },
+            "entity": res.entity,
+            "id": res.id,
+            "url": res.url,
+            "author_name": res.author_name,
+            "title": res.title,
+            "thumbnail": {
+                "url": res.thumbnail_url,
+                "width": res.thumbnail_width,
+                "height": res.thumbnail_height
+            },
+            "required_width": res.width,
+            "required_height": res.height,
+            "oembed": res.html
+        }
+    }
 }
 
 module.exports = Track;
