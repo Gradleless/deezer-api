@@ -117,6 +117,57 @@ class User extends Base {
             "checksum": res.checksum
         }
     } 
+
+    async getFlow(id) {
+
+        if(typeof id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.urid + `${id}/` + "flow")).data;
+        if(res.error) return res.error; 
+
+        return {
+            "flow": res.data,
+            "nb_results": res.data.length,
+        }
+    } 
+
+    /**
+     * @name getCharts - Charts = Top tracks, albums, etc
+     * @param {string} id - id of a user
+     * @param {string} type - tracks, albums, artists or playlists
+     */
+    async getCharts(id, type) {
+
+        if(typeof id != "string" || typeof type != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.urid + `${id}/` + `charts/${type}`)).data;
+        if(res.error) return res.error; 
+
+        switch(type) {
+
+            case "tracks":
+            case "albums":
+            case "artists":
+            case "playlists":
+                return {
+                    "data": res.data,
+                    "nb_results": res.total
+                }            
+            default:
+                console.log("There's only 4 categories: tracks, albums, artists and playlists");
+                break;
+        }
+    }
+
+    async getTracks(id) {
+
+        if(typeof id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.urid + `${id}/` + "tracks")).data;
+        if(res.error) return res.error; 
+
+        return {
+            "tracks": res.data,
+            "nb_results": res.data.length,
+        }
+    }
 }
 
 module.exports = User;

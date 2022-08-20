@@ -31,7 +31,6 @@ class Charts extends Base {
                 console.log("There's only 5 categories: tracks, albums, artists, playlists and podcasts");
                 break;
         }
-
     }
 }
 

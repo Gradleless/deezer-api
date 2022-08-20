@@ -191,6 +191,86 @@ class Me extends Base {
 
         return `Success: ${res.success}`
     }
+
+    async getFlow(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "flow", { params: { access_token: token }})).data;
+        if(res.error) return res.error; 
+
+        return {
+            "flow": res.data,
+            "nb_results": res.data.length,
+        }
+    } 
+
+    /**
+     * @name getCharts - Charts = Top tracks, albums, etc
+     * @param {string} token - token of a user
+     * @param {string} type - tracks, albums, artists or playlists
+     */
+    async getCharts(token, type) {
+
+        if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
+        if(res.error) return res.error; 
+
+        switch(type) {
+
+            case "tracks":
+            case "albums":
+            case "artists":
+            case "playlists":
+                return {
+                    "data": res.data,
+                    "nb_results": res.total
+                }            
+            default:
+                console.log("There's only 4 categories: tracks, albums, artists and playlists");
+                break;
+        }
+    }
+
+    /**
+    * @name getRecommendations
+    * @param {string} token - token of a user
+    * @param {string} type - tracks, albums, artists, playlists, releases or radios
+    */
+    async getRecommendations(token, type) {
+
+        if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
+        if(res.error) return res.error; 
+    
+        switch(type) {
+    
+            case "tracks":
+            case "albums":
+            case "artists":
+            case "playlists":
+            case "radios":
+            case "releases":
+                return {
+                    "data": res.data,
+                    "nb_results": res.total
+                }            
+            default:
+                console.log("There's only 6 categories: tracks, albums, artists, playlists, releases or radios");
+                break;
+        }
+    }
+
+    async getFlow(token) {
+
+        if(typeof token != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + "tracks", { params: { access_token: token }})).data;
+        if(res.error) return res.error; 
+
+        return {
+            "tracks": res.data,
+            "nb_results": res.data.length,
+        }
+    } 
 }
 
 module.exports = Me;
