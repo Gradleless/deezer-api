@@ -5,7 +5,6 @@
  ```
  npm install @narumily/deezerapi
  ```
-or clone it lmao
 
 1. ToDo list 
     - [x] Chart 
