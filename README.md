@@ -1,5 +1,5 @@
 # deezer-api
- A simple wrapper for interacting easily with Deezer API.
+ A simple nodejs wrapper for interacting easily with Deezer API.
 
  To download just use:
  ```
