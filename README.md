@@ -12,6 +12,6 @@
     - [x] Podcast 
     - [ ] Radio
     - [ ] Search (began)
-    - [ ] User (began, I'm an idiot I didn't implemented to check another user favorite artist and so on. My bad.) 
+    - [x] User 
     - [ ] oEmbed (?)
     - [ ] Have to add token directly in the constructor
