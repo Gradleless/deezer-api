@@ -21,3 +21,5 @@
     - [x] User 
     - [x] oEmbed
     - [ ] Have to add token directly in the constructor
+    - [ ] Add delete request
+    - [x] Add post request
