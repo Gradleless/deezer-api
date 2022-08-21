@@ -53,9 +53,12 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "history", { params: { access_token: token } })).data;
+        if(res.error) return res.error;
 
         return {
-            "all_data": res //I don't have the permission lmao, I'll give it to myself later
+            // "all_data": res,
+            "history": res.data,
+            "nb_results": res.total
         }
     }
 

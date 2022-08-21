@@ -22,6 +22,14 @@ class Base {
             return `${dur}:00`;
         }
     }
+
+    async getRequest(link) {
+
+        if(typeof link != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(link)).data;
+
+        return res;
+    }
 }
 
 module.exports = Base;

@@ -22,11 +22,17 @@ class Oauth extends Base {
         }
     }
 
+    /**
+     * 
+     * @param {string} app_id - ID of your app, that seems logical
+     * @param {string} perms - perms u want to have, don't forget to add a comma between each perms 
+     * @param {string} redirect_uri - (optional) if u have a different uri to use
+     */
     async getAuthCode(app_id, perms, redirect_uri) {
         if(!redirect_uri) {
 
-            redirect_uri = (await this.axios.get("http://api.ipify.org?format=json")).data.ip; // your ip
-            open(this.curi + app_id + "&redirect_uri=http://" + "localhost:80" + "/redirect/" + "&perms=" + perms);
+            redirect_uri = "localhost:80";
+            open(this.curi + app_id + "&redirect_uri=http://" + redirect_uri + "/redirect/" + "&perms=" + perms);
 
             app.get("/redirect", function(req, res) {
 
