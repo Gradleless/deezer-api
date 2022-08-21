@@ -16,7 +16,7 @@
     - [x] OAuth
     - [x] Playlist (partially)
     - [x] Podcast 
-    - [ ] Radio
+    - [x] Radio
     - [ ] Search (began)
     - [x] User 
     - [x] oEmbed
