@@ -99,7 +99,36 @@ class Playlist extends Base {
     async addFavorite(token, playlist_id) {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
-        const res = (await (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }}))).data;
+        const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
+
+    async addTracks(token, tracks_id, playlist_id) {
+
+        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
+        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, songs: tracks_id.toString() }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
+
+    async orderTracks(token, tracks_id, playlist_id) {
+
+        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
+        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, order: tracks_id.toString() }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
+
+    async seen(token, playlist_id) {
+
+        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + `${playlist_id}/seen`, { data: {}}, { params: { access_token: token }})).data;
         if(res.error) return res.error;
 
         return res;

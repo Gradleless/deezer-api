@@ -85,7 +85,7 @@ class Radio extends Base {
     async addFavorite(token, radio_id) {
 
         if(typeof token != "string" || typeof radio_id != "string") return console.log("It must be a string value !");
-        const res = (await (await this.axios.post(this.uri + "/user/me/radios", { data: {}}, { params: { access_token: token, radio_id: radio_id }}))).data;
+        const res = (await this.axios.post(this.uri + "/user/me/radios", { data: {}}, { params: { access_token: token, radio_id: radio_id }})).data;
         if(res.error) return res.error;
 
         return res;

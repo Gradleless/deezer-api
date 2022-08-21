@@ -278,7 +278,7 @@ class Me extends Base {
     async follow(token, user_id) {
 
         if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
-        const res = (await (await this.axios.post(this.urid + "followings", { data: {}}, { params: { access_token: token, user_id: user_id }}))).data;
+        const res = (await this.axios.post(this.urid + "followings", { data: {}}, { params: { access_token: token, user_id: user_id }})).data;
         if(res.error) return res.error;
 
         return res;
