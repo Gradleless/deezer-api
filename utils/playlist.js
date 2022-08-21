@@ -96,7 +96,7 @@ class Playlist extends Base {
         }
     }
 
-    async addFavoritePlaylist(token, playlist_id) {
+    async addFavorite(token, playlist_id) {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         const res = (await (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }}))).data;

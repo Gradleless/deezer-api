@@ -183,7 +183,7 @@ class Album extends Base {
         }
     }
 
-    async addFavoriteAlbum(token, album_id) {
+    async addFavorite(token, album_id) {
 
         if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
         const res = (await (await this.axios.post(this.uri + "/user/me/albums", { data: {}}, { params: { access_token: token, album_id: album_id }}))).data;

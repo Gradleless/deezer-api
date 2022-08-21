@@ -48,7 +48,7 @@ class Artist extends Base {
         }
     }
 
-    async addFavoriteArtist(token, artist_id) {
+    async addFavorite(token, artist_id) {
 
         if(typeof token != "string" || typeof artist_id != "string") return console.log("It must be a string value !");
         const res = (await (await this.axios.post(this.uri + "/user/me/artists", { data: {}}, { params: { access_token: token, artist_id: artist_id }}))).data;

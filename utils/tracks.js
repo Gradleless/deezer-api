@@ -204,7 +204,7 @@ class Track extends Base {
         }
     }
 
-    async addFavoriteTrack(token, track_id) {
+    async addFavorite(token, track_id) {
 
         if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
         const res = (await (await this.axios.post(this.uri + "/user/me/tracks", { data: {}}, { params: { access_token: token, track_id: track_id }}))).data;
