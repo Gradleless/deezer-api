@@ -105,6 +105,12 @@ class Playlist extends Base {
         return res;
     }
 
+    /**
+     * @name addTracks
+     * @param {string} token 
+     * @param {array} tracks_id - Array of string tracks id
+     * @param {string} playlist_id 
+     */
     async addTracks(token, tracks_id, playlist_id) {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
@@ -115,6 +121,12 @@ class Playlist extends Base {
         return res;
     }
 
+    /**
+     * @name orderTracks
+     * @param {string} token 
+     * @param {array} tracks_id - Array of string tracks id
+     * @param {string} playlist_id 
+     */
     async orderTracks(token, tracks_id, playlist_id) {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
