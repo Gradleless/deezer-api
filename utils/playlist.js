@@ -95,6 +95,15 @@ class Playlist extends Base {
             "oembed": res.html
         }
     }
+
+    async addFavoritePlaylist(token, playlist_id) {
+
+        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }}))).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Playlist;
