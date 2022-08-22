@@ -90,6 +90,15 @@ class Radio extends Base {
 
         return res;
     }
+
+    async deleteFavorite(token, radio_id) {
+
+        if(typeof token != "string" || typeof radio_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/radios", { params: { access_token: token, radio_id: radio_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Radio;

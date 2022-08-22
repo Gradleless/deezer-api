@@ -84,6 +84,15 @@ class Podcast extends Base {
 
         return res;
     }
+
+    async deleteFavorite(token, podcast_id) {
+
+        if(typeof token != "string" || typeof podcast_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/podcasts", { params: { access_token: token, podcast_id: podcast_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Podcast;

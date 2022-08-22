@@ -121,6 +121,14 @@ class Episode extends Base {
 
         return res;
     }
+
+    async removeBookmark(token, episode_id) {
+
+        if(typeof token != "string" || typeof episode_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + `${episode_id}/bookmark`, { params: { access_token: token }})).data;
+
+        return res;
+    }
 }
 
 module.exports = Episode;

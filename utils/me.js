@@ -283,6 +283,15 @@ class Me extends Base {
 
         return res;
     }
+
+    async unfollow(token, user_id) {
+
+        if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + "followings", { params: { access_token: token, user_id: user_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Me;

@@ -56,6 +56,15 @@ class Artist extends Base {
 
         return res;
     }
+
+    async deleteFavorite(token, artist_id) {
+
+        if(typeof token != "string" || typeof artist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/artists", { params: { access_token: token, artist_id: artist_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Artist;

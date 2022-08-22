@@ -191,6 +191,15 @@ class Album extends Base {
 
         return res;
     }
+
+    async deleteFavorite(token, album_id) {
+
+        if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/albums", { params: { access_token: token, album_id: album_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Album;

@@ -212,6 +212,39 @@ class Track extends Base {
 
         return res;
     }
+
+    async deleteFavorite(token, track_id) {
+
+        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/tracks", { params: { access_token: token, track_id: track_id }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
+
+    async update(token, track_id) {
+
+        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + track_id, { data: {}}, { params: { access_token: token }})).data;
+        if(res.error) return res.error;
+
+        return res;
+
+        /*
+        * idk how really work update of its own tracks (like, I dont have tracks bro even if I want to make music) 
+        * so I hope I have nothing to add besides that 
+        * (if someone use this function one day pls give me an answer bro)
+        */
+    }
+
+    async delete(token, track_id) {
+
+        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + track_id, { params: { access_token: token }})).data;
+        if(res.error) return res.error;
+
+        return res;
+    }
 }
 
 module.exports = Track;
