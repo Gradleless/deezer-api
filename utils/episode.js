@@ -106,6 +106,21 @@ class Episode extends Base {
             "oembed": res.html
         }
     }
+
+    /**
+     * @name setBookmark
+     * @param {string} token 
+     * @param {string} episode_id 
+     * @param {int} offset - between 0 and 100
+     * @returns 
+     */
+    async setBookmark(token, episode_id, offset) {
+
+        if(typeof token != "string" || typeof episode_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + `${episode_id}/bookmark`, { data: {}}, { params: { access_token: token, offset: offset }})).data;
+
+        return res;
+    }
 }
 
 module.exports = Episode;
