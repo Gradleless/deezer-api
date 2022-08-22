@@ -14,10 +14,10 @@
     - [x] Infos 
     - [x] Options
     - [x] OAuth
-    - [x] Playlist (partially)
+    - [x] Playlist
     - [x] Podcast 
     - [x] Radio
-    - [ ] Search (began)
+    - [x] Search
     - [x] User 
     - [x] oEmbed
     - [ ] Have to add token directly in the constructor
