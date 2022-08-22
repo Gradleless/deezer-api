@@ -12,7 +12,7 @@ class Radio extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.uri + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -35,7 +35,7 @@ class Radio extends Base {
 
         if(typeof radio != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + radio)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -47,7 +47,7 @@ class Radio extends Base {
     async getRadiosByGenre() {
 
         const res = (await this.axios.get(this.urid + "genres")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -59,7 +59,7 @@ class Radio extends Base {
     async getTopRadios() {
 
         const res = (await this.axios.get(urid + "top")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             //"all_data": res,
@@ -73,7 +73,7 @@ class Radio extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + id + `/tracks`)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             //"all_data": res,
@@ -86,7 +86,7 @@ class Radio extends Base {
 
         if(typeof token != "string" || typeof radio_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/radios", { data: {}}, { params: { access_token: token, radio_id: radio_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -95,7 +95,7 @@ class Radio extends Base {
 
         if(typeof token != "string" || typeof radio_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.uri + "/user/me/radios", { params: { access_token: token, radio_id: radio_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }

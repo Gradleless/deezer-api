@@ -16,7 +16,7 @@ class Podcast extends Base {
 
         if(typeof id != "string") return console.log("The parameter must be a string value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -80,7 +80,7 @@ class Podcast extends Base {
 
         if(typeof token != "string" || typeof podcast_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/podcasts", { data: {}}, { params: { access_token: token, podcast_id: podcast_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -89,7 +89,7 @@ class Podcast extends Base {
 
         if(typeof token != "string" || typeof podcast_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.uri + "/user/me/podcasts", { params: { access_token: token, podcast_id: podcast_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }

@@ -16,7 +16,7 @@ class Playlist extends Base {
         
         if(typeof id != "string") return console.log("It must be a String value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -69,7 +69,7 @@ class Playlist extends Base {
 
         const params = `/&autoplay=${data.autoplay}&maxwidth=${data.maxwidth}&maxheight=${data.maxheight}&radius=${data.radius}&tracklist=${data.tracklist}`
         const res = (await this.axios.get(this.uri + "oembed?url=https://www.deezer.com/playlist/" + id + params)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -100,7 +100,7 @@ class Playlist extends Base {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -116,7 +116,7 @@ class Playlist extends Base {
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
         const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, songs: tracks_id.toString() }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -132,7 +132,7 @@ class Playlist extends Base {
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
         const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, order: tracks_id.toString() }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -147,7 +147,7 @@ class Playlist extends Base {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.urid + `${playlist_id}/seen`, { data: {}}, { params: { access_token: token }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -156,7 +156,7 @@ class Playlist extends Base {
 
         if(typeof token != "string" || typeof name != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, title: name }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -165,7 +165,7 @@ class Playlist extends Base {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.urid + playlist_id, { params: { access_token: token }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -175,7 +175,7 @@ class Playlist extends Base {
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
         const res = (await this.axios.delete(this.urid + `${playlist_id}/tracks`, { params: { access_token: token, songs: tracks_id.toString() }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -184,7 +184,7 @@ class Playlist extends Base {
 
         if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.uri + "/user/me/playlists", { params: { access_token: token, playlist_id: playlist_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }

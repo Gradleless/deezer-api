@@ -11,7 +11,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -34,7 +34,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "playlists")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "playlists": res.data,
@@ -46,7 +46,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "followers")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "followers": res.data,
@@ -58,7 +58,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "followings")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "followings": res.data,
@@ -70,7 +70,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "artists")).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "artists": res.data,
@@ -83,7 +83,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "albums")).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "albums": res.data,
@@ -96,7 +96,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "podcasts")).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "podcasts": res.data,
@@ -109,7 +109,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "radios")).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "radios": res.data,
@@ -122,7 +122,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "flow")).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "flow": res.data,
@@ -139,7 +139,7 @@ class User extends Base {
 
         if(typeof id != "string" || typeof type != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + `charts/${type}`)).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         switch(type) {
 
@@ -161,7 +161,7 @@ class User extends Base {
 
         if(typeof id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.urid + `${id}/` + "tracks")).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "tracks": res.data,

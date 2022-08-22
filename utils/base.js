@@ -48,7 +48,7 @@ class Base {
         if(typeof order != "string" || typeof adv_search != "string") return console.log("It must be a string value !");
         if(order) {
             const res = (await this.axios.get(this.uri + `search/?q=${adv_search}`, { params: { order: order }})).data;
-            if(res.error) return res.error;
+            if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {
                 "data": res.data,
@@ -56,7 +56,7 @@ class Base {
             }
         } else {
             const res = (await this.axios.get(this.uri + `search/?q=${adv_search}`)).data;
-            if(res.error) return res.error;
+            if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {
                 "data": res.data,

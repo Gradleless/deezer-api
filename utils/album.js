@@ -18,7 +18,7 @@ class Album extends Base {
         
         if(typeof id != "string") return console.log("It must be a String value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -156,7 +156,7 @@ class Album extends Base {
 
         const params = `/&autoplay=${data.autoplay}&maxwidth=${data.maxwidth}&maxheight=${data.maxheight}&radius=${data.radius}&tracklist=${data.tracklist}`
         const res = (await this.axios.get(this.uri + "oembed?url=https://www.deezer.com/album/" + id + params)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -187,7 +187,7 @@ class Album extends Base {
 
         if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/albums", { data: {}}, { params: { access_token: token, album_id: album_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -196,7 +196,7 @@ class Album extends Base {
 
         if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.uri + "/user/me/albums", { params: { access_token: token, album_id: album_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }

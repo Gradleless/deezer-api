@@ -12,7 +12,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri, { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -53,7 +53,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "history", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -66,7 +66,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "playlists": res.data,
@@ -78,7 +78,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "songs": res.data,
@@ -90,7 +90,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "options", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             //"all_data": res,
@@ -114,7 +114,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "followers": res.data,
@@ -126,7 +126,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "followings", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "followings": res.data,
@@ -138,7 +138,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "artists", { params: { access_token: token } })).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             "artists": res.data,
@@ -151,7 +151,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "albums", { params: { access_token: token } })).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "albums": res.data,
@@ -164,7 +164,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "podcasts", { params: { access_token: token } })).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "podcasts": res.data,
@@ -177,7 +177,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "radios": res.data,
@@ -190,7 +190,7 @@ class Me extends Base {
 
         if(typeof token != "string" || typeof message != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.suri + "notifications", {data: {}}, { params: { access_token: token, message: message }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return `Success: ${res.success}`
     }
@@ -199,7 +199,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "flow", { params: { access_token: token }})).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "flow": res.data,
@@ -216,7 +216,7 @@ class Me extends Base {
 
         if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         switch(type) {
 
@@ -243,7 +243,7 @@ class Me extends Base {
 
         if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
     
         switch(type) {
     
@@ -267,7 +267,7 @@ class Me extends Base {
 
         if(typeof token != "string") return console.log("It must be a string value !");
         const res = (await this.axios.get(this.suri + "tracks", { params: { access_token: token }})).data;
-        if(res.error) return res.error; 
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
             "tracks": res.data,
@@ -279,7 +279,7 @@ class Me extends Base {
 
         if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.urid + "followings", { data: {}}, { params: { access_token: token, user_id: user_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -288,7 +288,7 @@ class Me extends Base {
 
         if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.urid + "followings", { params: { access_token: token, user_id: user_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -305,7 +305,7 @@ class Me extends Base {
         if(typeof title != "string" || typeof token != "string") return console.log("It must be a string value !");
         if(!order) {
             const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token }})).data;
-            if(res.error) return res.error;
+            if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {
                 "data": res.data,
@@ -314,7 +314,7 @@ class Me extends Base {
             }
         } else {
             const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token, order: order }})).data;
-            if(res.error) return res.error;
+            if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {
                 "data": res.data,

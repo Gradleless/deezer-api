@@ -12,7 +12,7 @@ class Artist extends Base {
         
         if(typeof id != "string") return console.log("It must be a String value !");
         const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
             // "all_data": res,
@@ -52,7 +52,7 @@ class Artist extends Base {
 
         if(typeof token != "string" || typeof artist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.post(this.uri + "/user/me/artists", { data: {}}, { params: { access_token: token, artist_id: artist_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
@@ -61,7 +61,7 @@ class Artist extends Base {
 
         if(typeof token != "string" || typeof artist_id != "string") return console.log("It must be a string value !");
         const res = (await this.axios.delete(this.uri + "/user/me/artists", { params: { access_token: token, artist_id: artist_id }})).data;
-        if(res.error) return res.error;
+        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
