@@ -124,7 +124,7 @@ class Playlist extends Base {
     /**
      * @name orderTracks
      * @param {string} token 
-     * @param {array} tracks_id - Array of string tracks id
+     * @param {Array} tracks_id - Array of string tracks id
      * @param {string} playlist_id 
      */
     async orderTracks(token, tracks_id, playlist_id) {
