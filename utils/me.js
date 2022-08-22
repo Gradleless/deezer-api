@@ -292,6 +292,37 @@ class Me extends Base {
 
         return res;
     }
+
+    /**
+     * @name searchHistory
+     * @param {string} token 
+     * @param {string} title 
+     * @param {string} order - (optional), check this.order_value
+     * @returns 
+     */
+    async searchHistory(token, title, order) {
+
+        if(typeof title != "string" || typeof token != "string") return console.log("It must be a string value !");
+        if(!order) {
+            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token }})).data;
+            if(res.error) return res.error;
+
+            return {
+                "data": res.data,
+                "count": res.count,
+                "nb_results": res.total
+            }
+        } else {
+            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token, order: order }})).data;
+            if(res.error) return res.error;
+
+            return {
+                "data": res.data,
+                "count": res.count,
+                "nb_results": res.total
+            }
+        }
+    }
 }
 
 module.exports = Me;

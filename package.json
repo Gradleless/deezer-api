@@ -1,6 +1,6 @@
 {
   "name": "@narumily/deezerapi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "repository":"https://github.com/NarumiLy/deezer-api",
