@@ -2,8 +2,9 @@ const Base = require("./base");
 
 class Podcast extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.urid = this.uri + "podcast/";
         this.suri = this.uri + "search/podcast?q=";
     }
@@ -76,19 +77,19 @@ class Podcast extends Base {
         }
     }
 
-    async addFavorite(token, podcast_id) {
+    async addFavorite(podcast_id) {
 
-        if(typeof token != "string" || typeof podcast_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/podcasts", { data: {}}, { params: { access_token: token, podcast_id: podcast_id }})).data;
+        if(typeof podcast_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.uri + "/user/me/podcasts", { data: {}}, { params: { access_token: this.token, podcast_id: podcast_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async deleteFavorite(token, podcast_id) {
+    async deleteFavorite(podcast_id) {
 
-        if(typeof token != "string" || typeof podcast_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.uri + "/user/me/podcasts", { params: { access_token: token, podcast_id: podcast_id }})).data;
+        if(typeof podcast_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/podcasts", { params: { access_token: this.token, podcast_id: podcast_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;

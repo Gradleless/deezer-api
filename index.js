@@ -15,21 +15,23 @@ const Radio = require("./utils/radio");
 
 class DeezerAPI {
 
-    constructor() {       
-        this.track = new Track;
-        this.album = new Album;
-        this.artist = new Artist;
-        this.playlist = new Playlist;
+    constructor(token) {  
+        
+        this.token = null || token;
+        this.track = new Track(this.token);
+        this.album = new Album(this.token);
+        this.artist = new Artist(this.token);
+        this.playlist = new Playlist(this.token);
         this.genre = new Genre;
-        this.episode = new Episode;
+        this.episode = new Episode(this.token);
         this.infos = new Infos;
-        this.podcast = new Podcast;
+        this.podcast = new Podcast(this.token);
         this.charts = new Charts;
         this.editorial = new Editorial;
         this.oauth = new Oauth;
-        this.me = new Me;
-        this.user = new User;
-        this.radio = new Radio;
+        this.me = new Me(this.token);
+        this.user = new User(this.token);
+        this.radio = new Radio(this.token);
     }
 }
 module.exports = DeezerAPI;

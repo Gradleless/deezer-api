@@ -2,8 +2,9 @@ const Base = require("./base");
 
 class Episode extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.urid = this.uri + "episode/";
         this.suri = this.uri + "search/episode?q=";
     }
@@ -114,18 +115,18 @@ class Episode extends Base {
      * @param {int} offset - between 0 and 100
      * @returns 
      */
-    async setBookmark(token, episode_id, offset) {
+    async setBookmark(episode_id, offset) {
 
-        if(typeof token != "string" || typeof episode_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.urid + `${episode_id}/bookmark`, { data: {}}, { params: { access_token: token, offset: offset }})).data;
+        if(typeof episode_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + `${episode_id}/bookmark`, { data: {}}, { params: { access_token: this.token, offset: offset }})).data;
 
         return res;
     }
 
-    async removeBookmark(token, episode_id) {
+    async removeBookmark(episode_id) {
 
-        if(typeof token != "string" || typeof episode_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.urid + `${episode_id}/bookmark`, { params: { access_token: token }})).data;
+        if(typeof episode_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + `${episode_id}/bookmark`, { params: { access_token: this.token }})).data;
 
         return res;
     }

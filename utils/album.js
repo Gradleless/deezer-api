@@ -3,8 +3,9 @@ const Genre = require("./genre");
 
 class Album extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.genre = new Genre;
         this.urid = this.uri + "album/";
         this.suri = this.uri + "search/album?q=";
@@ -183,19 +184,19 @@ class Album extends Base {
         }
     }
 
-    async addFavorite(token, album_id) {
+    async addFavorite(album_id) {
 
-        if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/albums", { data: {}}, { params: { access_token: token, album_id: album_id }})).data;
+        if(typeof album_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.uri + "/user/me/albums", { data: {}}, { params: { access_token: this.token, album_id: album_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async deleteFavorite(token, album_id) {
+    async deleteFavorite(album_id) {
 
-        if(typeof token != "string" || typeof album_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.uri + "/user/me/albums", { params: { access_token: token, album_id: album_id }})).data;
+        if(typeof album_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/albums", { params: { access_token: this.token, album_id: album_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;

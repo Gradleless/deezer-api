@@ -2,16 +2,16 @@ const Base = require("./base");
 
 class Me extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.urid = this.uri + "user/";
         this.suri = this.urid + "me/";
     }
 
-    async getMyself(token) {
+    async getMyself() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri, { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri, { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -39,20 +39,18 @@ class Me extends Base {
         }
     }
 
-    async getPermissions(token) {
+    async getPermissions() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "permissions", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "permissions", { params: { access_token: this.token } })).data;
 
         return {
             "permissions": res.permissions
         }
     }
 
-    async getHistory(token) {
+    async getHistory() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "history", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "history", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -62,10 +60,9 @@ class Me extends Base {
         }
     }
 
-    async getPlaylists(token) {
+    async getPlaylists() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "playlists", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -74,10 +71,9 @@ class Me extends Base {
         }
     }
 
-    async getPersonalSongs(token) {
+    async getPersonalSongs() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "personal_songs", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -86,10 +82,9 @@ class Me extends Base {
         }
     }
 
-    async getOptions(token) {
+    async getOptions() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "options", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "options", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -110,10 +105,9 @@ class Me extends Base {
         }
     }
 
-    async getFollowers(token) {
+    async getFollowers() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "followers", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "followers", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -122,10 +116,9 @@ class Me extends Base {
         }
     }
 
-    async getFollowings(token) {
+    async getFollowings() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "followings", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "followings", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -134,10 +127,9 @@ class Me extends Base {
         }
     }
 
-    async getFavoriteArtists(token) {
+    async getFavoriteArtists() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "artists", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "artists", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return {
@@ -147,10 +139,9 @@ class Me extends Base {
         }
     }
 
-    async getFavoriteAlbums(token) {
+    async getFavoriteAlbums() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "albums", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "albums", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
@@ -160,10 +151,9 @@ class Me extends Base {
         }
     }
 
-    async getFavoritePodcasts(token) {
+    async getFavoritePodcasts() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "podcasts", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "podcasts", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
@@ -173,10 +163,9 @@ class Me extends Base {
         }
     }
 
-    async getFavoriteRadios(token) {
+    async getFavoriteRadios() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "radios", { params: { access_token: token } })).data;
+        const res = (await this.axios.get(this.suri + "radios", { params: { access_token: this.token } })).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
@@ -186,19 +175,18 @@ class Me extends Base {
         }
     }  
 
-    async sendNotification(token, message) {
+    async sendNotification(message) {
 
-        if(typeof token != "string" || typeof message != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.suri + "notifications", {data: {}}, { params: { access_token: token, message: message }})).data;
+        if(typeof message != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.suri + "notifications", {data: {}}, { params: { access_token: this.token, message: message }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return `Success: ${res.success}`
     }
 
-    async getFlow(token) {
+    async getFlow() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "flow", { params: { access_token: token }})).data;
+        const res = (await this.axios.get(this.suri + "flow", { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
@@ -212,10 +200,10 @@ class Me extends Base {
      * @param {string} token - token of a user
      * @param {string} type - tracks, albums, artists or playlists
      */
-    async getCharts(token, type) {
+    async getCharts(type) {
 
-        if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
+        if(typeof type != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         switch(type) {
@@ -239,10 +227,10 @@ class Me extends Base {
     * @param {string} token - token of a user
     * @param {string} type - tracks, albums, artists, playlists, releases or radios
     */
-    async getRecommendations(token, type) {
+    async getRecommendations(type) {
 
-        if(typeof token != "string" || typeof type != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: token }})).data;
+        if(typeof type != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.get(this.suri + `charts/${type}`, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
     
         switch(type) {
@@ -263,10 +251,9 @@ class Me extends Base {
         }
     }
 
-    async getFlow(token) {
+    async getFlow() {
 
-        if(typeof token != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.get(this.suri + "tracks", { params: { access_token: token }})).data;
+        const res = (await this.axios.get(this.suri + "tracks", { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`); 
 
         return {
@@ -275,36 +262,35 @@ class Me extends Base {
         }
     }
     
-    async follow(token, user_id) {
+    async follow(user_id) {
 
-        if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.urid + "followings", { data: {}}, { params: { access_token: token, user_id: user_id }})).data;
+        if(typeof user_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + "followings", { data: {}}, { params: { access_token: this.token, user_id: user_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async unfollow(token, user_id) {
+    async unfollow(user_id) {
 
-        if(typeof token != "string" || typeof user_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.urid + "followings", { params: { access_token: token, user_id: user_id }})).data;
+        if(typeof user_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + "followings", { params: { access_token: this.token, user_id: user_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
     /**
-     * @name searchHistory
-     * @param {string} token 
+     * @name searchHistory 
      * @param {string} title 
      * @param {string} order - (optional), check this.order_value
      * @returns 
      */
-    async searchHistory(token, title, order) {
+    async searchHistory(title, order) {
 
-        if(typeof title != "string" || typeof token != "string") return console.log("It must be a string value !");
+        if(typeof title != "string") return console.log("It must be a string value !");
         if(!order) {
-            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token }})).data;
+            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: this.token }})).data;
             if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {
@@ -313,7 +299,7 @@ class Me extends Base {
                 "nb_results": res.total
             }
         } else {
-            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: token, order: order }})).data;
+            const res = (await this.axios.get(this.uri + "search/history?q=" + title, { params: { access_token: this.token, order: order }})).data;
             if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
             return {

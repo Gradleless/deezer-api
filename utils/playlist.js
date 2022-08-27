@@ -2,8 +2,9 @@ const Base = require("./base");
 
 class Playlist extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.urid = this.uri + "playlist/";
         this.suri = this.uri + "search/playlist?q=";
     }
@@ -96,10 +97,10 @@ class Playlist extends Base {
         }
     }
 
-    async addFavorite(token, playlist_id) {
+    async addFavorite(playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, playlist_id: playlist_id }})).data;
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: this.token, playlist_id: playlist_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
@@ -107,15 +108,14 @@ class Playlist extends Base {
 
     /**
      * @name addTracks
-     * @param {string} token 
      * @param {array} tracks_id - Array of string tracks id
      * @param {string} playlist_id 
      */
-    async addTracks(token, tracks_id, playlist_id) {
+    async addTracks(tracks_id, playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
-        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, songs: tracks_id.toString() }})).data;
+        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: this.token, songs: tracks_id.toString() }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
@@ -123,15 +123,14 @@ class Playlist extends Base {
 
     /**
      * @name orderTracks
-     * @param {string} token 
      * @param {Array} tracks_id - Array of string tracks id
      * @param {string} playlist_id 
      */
-    async orderTracks(token, tracks_id, playlist_id) {
+    async orderTracks(tracks_id, playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
-        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: token, order: tracks_id.toString() }})).data;
+        const res = (await this.axios.post(this.urid + `${playlist_id}/tracks`, { data: {}}, { params: { access_token: this.token, order: tracks_id.toString() }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
@@ -139,51 +138,50 @@ class Playlist extends Base {
 
     /**
      * @name seen - Mark the playlist as seen
-     * @param {string} token 
      * @param {string} playlist_id 
      * @returns 
      */
-    async seen(token, playlist_id) {
+    async seen(playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.urid + `${playlist_id}/seen`, { data: {}}, { params: { access_token: token }})).data;
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + `${playlist_id}/seen`, { data: {}}, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async create(token, name) {
+    async create(name) {
 
-        if(typeof token != "string" || typeof name != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: token, title: name }})).data;
+        if(typeof name != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.uri + "/user/me/playlists", { data: {}}, { params: { access_token: this.token, title: name }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async delete(token, playlist_id) {
+    async delete(playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.urid + playlist_id, { params: { access_token: token }})).data;
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + playlist_id, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async removeTracks(token, tracks_id, playlist_id) {
+    async removeTracks(tracks_id, playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
         if(!Array.isArray(tracks_id)) return console.log("tracks_id must be an array of string !");
-        const res = (await this.axios.delete(this.urid + `${playlist_id}/tracks`, { params: { access_token: token, songs: tracks_id.toString() }})).data;
+        const res = (await this.axios.delete(this.urid + `${playlist_id}/tracks`, { params: { access_token: this.token, songs: tracks_id.toString() }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async deleteFavorite(token, playlist_id) {
+    async deleteFavorite(playlist_id) {
 
-        if(typeof token != "string" || typeof playlist_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.uri + "/user/me/playlists", { params: { access_token: token, playlist_id: playlist_id }})).data;
+        if(typeof playlist_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/playlists", { params: { access_token: this.token, playlist_id: playlist_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;

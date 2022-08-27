@@ -2,8 +2,9 @@ const Base = require("./base");
 
 class Track extends Base {
 
-    constructor() {
+    constructor(token) {
         super();
+        this.token = token;
         this.urid = this.uri + "track/";
         this.suri = this.uri + "search/track?q=";
     }
@@ -204,28 +205,28 @@ class Track extends Base {
         }
     }
 
-    async addFavorite(token, track_id) {
+    async addFavorite(track_id) {
 
-        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/tracks", { data: {}}, { params: { access_token: token, track_id: track_id }})).data;
+        if(typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.uri + "/user/me/tracks", { data: {}}, { params: { access_token: this.token, track_id: track_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async deleteFavorite(token, track_id) {
+    async deleteFavorite(track_id) {
 
-        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.uri + "/user/me/tracks", { params: { access_token: token, track_id: track_id }})).data;
+        if(typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.uri + "/user/me/tracks", { params: { access_token: this.token, track_id: track_id }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
     }
 
-    async update(token, track_id) {
+    async update(track_id) {
 
-        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.urid + track_id, { data: {}}, { params: { access_token: token }})).data;
+        if(typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.post(this.urid + track_id, { data: {}}, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;
@@ -237,10 +238,10 @@ class Track extends Base {
         */
     }
 
-    async delete(token, track_id) {
+    async delete(track_id) {
 
-        if(typeof token != "string" || typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.urid + track_id, { params: { access_token: token }})).data;
+        if(typeof track_id != "string") return console.log("It must be a string value !");
+        const res = (await this.axios.delete(this.urid + track_id, { params: { access_token: this.token }})).data;
         if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
 
         return res;

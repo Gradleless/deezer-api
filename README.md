@@ -20,6 +20,6 @@
     - [x] Search
     - [x] User 
     - [x] oEmbed
-    - [ ] Have to add token directly in the constructor
+    - [x] Have to add token directly in the constructor
     - [x] Add delete request
     - [x] Add post request
