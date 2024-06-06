@@ -9,18 +9,8 @@ class Track extends Base {
         this.suri = this.uri + "search/track?q=";
     }
     
-    /**
-     * @name getTrack
-     * @param {string} id 
-     */
-    async getTrack(id) {
-        
-        if(typeof id != "string") return console.log("It must be a String value !");
-        const res = (await this.axios.get(this.urid + id)).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
-
+    formatTrackResponse(res) {
         return {
-            // "all_data": res,
             "id": res.id,
             "title": res.title,
             "title_short": res.title_short,
@@ -69,7 +59,32 @@ class Track extends Base {
                 "radio": res.artist.radio,
                 "tracklist": res.artist.tracklist
             }
-        }       
+        };
+    }
+
+    async fetchWrapper(url, options = {}) {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if (data.error) {
+            console.log(data.error.message + ` code: ${data.error.code}`);
+            return null;
+        }
+        return data;
+    }
+
+    /**
+     * @name getTrack
+     * @param {string} id 
+     */
+    async getTrack(id) {
+        if (typeof id !== "string") {
+            console.log("It must be a String value !");
+            return null;
+        }
+        const res = await this.fetchWrapper(this.urid + id);
+        if (!res) return;
+
+        return this.formatTrackResponse(res);
     }
 
     /**
@@ -78,74 +93,30 @@ class Track extends Base {
      * @param {string} artist 
      */
     async searchTrack(track, artist) {
-
-        if(typeof track != "string") return console.log("It must be a String !");
-        if(!artist) {
-
-            const res = (await this.axios.get(this.suri + `"${track}"`)).data;
-            return res;
-
-        } else if(typeof artist == "string") {
-
-            const res = (await this.axios.get(this.suri + `artist:"${artist}" track:"${track}"`)).data;
-            const ress = res.data[0];
-
-            if(res.data.length == 1) {
-
-                return {
-                    "id": ress.id,
-                    "readable": ress.readable,
-                    "title": ress.title,
-                    "title_short": ress.title_short,
-                    "title_version": ress.title_version,
-                    "link": ress.link,
-                    "duration": this.convertDuration(ress.duration),
-                    "rank": ress.rank,
-                    "explicit_lyrics": ress.explicit_lyrics,
-                    "explicit_content_lyrics": ress.explicit_content_lyrics,
-                    "explicit_content_cover": ress.explicit_content_cover,
-                    "preview": ress.preview,
-                    "md5_image": ress.md5_image,
-                    "artist": {
-                        "id": ress.artist.id,
-                        "name": ress.artist.name,
-                        "link": ress.artist.link,
-                        "picture": {
-                            "small": ress.artist.picture_small,
-                            "medium": ress.artist.picture_medium,
-                            "big": ress.artist.picture_big,
-                            "xl": ress.artist.picture_xl
-                        },
-                        "tracklist": ress.artist.tracklist,
-                        "type": ress.artist.type,
-                    },
-                    "album": {
-                        "id": ress.album.id,
-                        "title": ress.album.title,
-                        "cover": {
-                            "small": ress.album.cover_small,
-                            "medium": ress.album.cover_medium,
-                            "big": ress.album.cover_big,
-                            "xl": ress.album.cover_xl
-                        },
-                        "md5_image": ress.album.md5_image,
-                        "tracklist": ress.album.tracklist,
-                        "type": ress.album.type // it's useless but... Yeah idk
-                    }
-                }
-
-            } else {
-
-                return {
-                    "data": res.data,
-                    "nb_results": res.total
-                }
+        if (typeof track !== "string") {
+            console.log("It must be a String !");
+            return null;
+        }
+        let url = this.suri + `"${track}"`;
+        if (artist) {
+            if (typeof artist !== "string") {
+                console.log("Artist must be a String !");
+                return null;
             }
-            
-        } else {
+            url = this.suri + `artist:"${artist}" track:"${track}"`;
+        }
+        const res = await this.fetchWrapper(url);
+        if (!res) return;
 
-            return console.log("It must be a String !");
-        }       
+        if (artist && res.data.length === 1) {
+            const ress = res.data[0];
+            return this.formatTrackResponse(ress);
+        } else {
+            return {
+                "data": res.data,
+                "nb_results": res.total
+            };
+        }
     }
 
     /**
@@ -153,14 +124,17 @@ class Track extends Base {
      * @param {string} name 
      */
     async searchArtistTracks(name) {
-
-        if(typeof name != "string") return console.log("It must be a String value !");
-        const res = (await this.axios.get(this.suri + `artist:"${name}"`)).data;
+        if (typeof name !== "string") {
+            console.log("It must be a String value !");
+            return null;
+        }
+        const res = await this.fetchWrapper(this.suri + `artist:"${name}"`);
+        if (!res) return;
 
         return {
             "data": res.data,
             "nb_results": res.total
-        }       
+        };
     }
 
     /**
@@ -172,16 +146,16 @@ class Track extends Base {
      * @param {boolean} radius - (optional) Radius visual effect
      * @param {boolean} tracklist - (optional) Display the tracklist 
     */
-     async getoEmbed(id, data = { autoplay: false, maxwidth: 420, maxheight: 420, radius: true, tracklist: false }) {
-
-        if(typeof id != "string") return console.log("It must be a string value !");
-
-        const params = `/&autoplay=${data.autoplay}&maxwidth=${data.maxwidth}&maxheight=${data.maxheight}&radius=${data.radius}&tracklist=${data.tracklist}`
-        const res = (await this.axios.get(this.uri + "oembed?url=https://www.deezer.com/track/" + id + params)).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
+    async getoEmbed(id, data = { autoplay: false, maxwidth: 420, maxheight: 420, radius: true, tracklist: false }) {
+        if (typeof id !== "string") {
+            console.log("It must be a string value !");
+            return null;
+        }
+        const params = `/&autoplay=${data.autoplay}&maxwidth=${data.maxwidth}&maxheight=${data.maxheight}&radius=${data.radius}&tracklist=${data.tracklist}`;
+        const res = await this.fetchWrapper(this.uri + "oembed?url=https://www.deezer.com/track/" + id + params);
+        if (!res) return;
 
         return {
-            // "all_data": res,
             "version": res.version,
             "type": res.type,
             "cache_age": res.cache_age,
@@ -202,50 +176,63 @@ class Track extends Base {
             "required_width": res.width,
             "required_height": res.height,
             "oembed": res.html
+        };
+    }
+
+    async modifyFavorite(method, track_id) {
+        if (typeof track_id !== "string") {
+            console.log("It must be a string value !");
+            return null;
         }
+        const options = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ track_id: track_id })
+        };
+        const url = this.uri + "/user/me/tracks?access_token=" + this.token;
+        const res = await this.fetchWrapper(url, options);
+        return res;
     }
 
     async addFavorite(track_id) {
-
-        if(typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.uri + "/user/me/tracks", { data: {}}, { params: { access_token: this.token, track_id: track_id }})).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
-
-        return res;
+        return this.modifyFavorite('POST', track_id);
     }
 
     async deleteFavorite(track_id) {
-
-        if(typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.uri + "/user/me/tracks", { params: { access_token: this.token, track_id: track_id }})).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
-
-        return res;
+        return this.modifyFavorite('DELETE', track_id);
     }
 
     async update(track_id) {
-
-        if(typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.post(this.urid + track_id, { data: {}}, { params: { access_token: this.token }})).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
-
+        if (typeof track_id !== "string") {
+            console.log("It must be a string value !");
+            return null;
+        }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        };
+        const res = await this.fetchWrapper(this.urid + track_id, options);
         return res;
-
-        /*
-        * idk how really work update of its own tracks (like, I dont have tracks bro even if I want to make music) 
-        * so I hope I have nothing to add besides that 
-        * (if someone use this function one day pls give me an answer bro)
-        */
     }
 
     async delete(track_id) {
-
-        if(typeof track_id != "string") return console.log("It must be a string value !");
-        const res = (await this.axios.delete(this.urid + track_id, { params: { access_token: this.token }})).data;
-        if(res.error) return console.log(res.error.message + ` code: ${res.error.code}`);
-
+        if (typeof track_id !== "string") {
+            console.log("It must be a string value !");
+            return null;
+        }
+        const options = {
+            method: 'DELETE'
+        };
+        const res = await this.fetchWrapper(this.urid + track_id, options);
         return res;
     }
 }
 
 module.exports = Track;
+
+
