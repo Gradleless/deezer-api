@@ -28,42 +28,56 @@ class Oauth extends Base {
      * @param {Array} perms - (array of string) perms u want to have, don't forget to add a comma between each perms 
      * @param {string} redirect_uri - (optional) if u have a different uri to use
      */
-    async getAuthCode(app_id, perms, redirect_uri) {
-        if(!redirect_uri) {
-
-            redirect_uri = "localhost:80";
-            open(this.curi + app_id + "&redirect_uri=http://" + redirect_uri + "/redirect/" + "&perms=" + perms.toString());
-
-            app.get("/redirect", function(req, res) {
-
-                console.log(req.query.code);
-                fs.writeFile("config.json", `{ "code": "${req.query.code}" }`, function(err) {
-
-                    if(err) return console.log(err)
-                });
-
-                console.log("Code saved in config.json");
-            })
-
-            var server = app.listen(80);             
-        } else {
-
-        open(this.curi + app_id + "&redirect_uri=" + redirect_uri + "&perms=" + perms);
+    async authenticate(app_id, perms, redirect_uri = "http://localhost:80/redirect", app_secret = null, code = null) {
+        if (!app_id) {
+            console.error("App ID is required.");
+            return null;
         }
-    }
 
-    async getAuth(app_id, app_secret, code) {
+        if (app_secret && code) {
+            // Retrieve access token using app_id, app_secret, and code
+            try {
+                const response = await this.axios.get(`https://connect.deezer.com/oauth/access_token.php?app_id=${app_id}&secret=${app_secret}&code=${code}`);
+                const data = response.data;
 
-        if(!app_id || !app_secret || !code) return console.log("We need all of the parameters !");
-        if(typeof app_id != "string" || typeof app_secret != "string" || typeof code != "string") return console.log("It must be a string value !");
+                if (data.includes("wrong code")) {
+                    console.error("Wrong code or outdated code");
+                    return null;
+                }
 
-        const res = (await this.axios.get(`https://connect.deezer.com/oauth/access_token.php?app_id=${app_id}&secret=${app_secret}&code=${code}`)).data;
-        if(res == "wrong code") return console.log("Wrong code or outdated code");
+                const token = data.split("&expires=")[0].slice(13);
+                const expire_time = data.split("&expires=")[1];
 
-        return {
-            // "all_data": res,
-            "token": res.split("&expires=")[0].slice(13),
-            "expire_time": res.split("&expires=")[1],
+                return { token, expire_time };
+            } catch (error) {
+                console.error("Failed to retrieve access token", error);
+                return null;
+            }
+        } else {
+            // Generate authorization URL and start server to listen for redirect
+            const permissions = perms.join(',');
+            const authUrl = `${this.curi}${app_id}&redirect_uri=${encodeURIComponent(redirect_uri)}&perms=${permissions}`;
+            open(authUrl);
+
+            app.get("/redirect", async (req, res) => {
+                const { code } = req.query;
+                if (code) {
+                    try {
+                        await fs.promises.writeFile("config.json", JSON.stringify({ code }));
+                        console.log("Code saved in config.json");
+                        res.send("Authentication successful. You can close this window.");
+                    } catch (err) {
+                        console.error("Failed to write code to config.json", err);
+                        res.status(500).send("Failed to save authentication code.");
+                    }
+                } else {
+                    res.status(400).send("No code provided in the redirect.");
+                }
+            });
+
+            if (!this.server) {
+                this.server = app.listen(80, () => console.log("Server listening on port 80"));
+            }
         }
     }
 }
